@@ -282,6 +282,7 @@ require('lazy').setup({
     config = function()
       require('nvim-tree').setup {}
     end,
+    vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true }),
   },
 
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
