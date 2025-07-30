@@ -90,8 +90,20 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+--keymap remove trailing spaces
+vim.keymap.set('n', '<leader>w', [[:%s/\s\+$//<CR>]], { noremap = true, silent = true, desc = 'remove trailing spaces' })
+vim.keymap.set('n', '<leader>a', [[:%s/\t/    /g<CR>]], { noremap = true, silent = true, desc = 'replace tabs' })
+
+-- personal settings for tabs and shit
+local set = vim.opt
+set.tabstop = 4
+set.shiftwidth = 4
+set.colorcolumn = '80'
+set.expandtab = true
+set.softtabstop = 4
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
