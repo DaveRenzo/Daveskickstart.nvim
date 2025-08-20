@@ -95,12 +95,18 @@ vim.keymap.set('n', '<leader>w', [[:%s/\s\+$//<CR>]], { noremap = true, silent =
 vim.keymap.set('n', '<leader>a', [[:%s/\t/    /g<CR>]], { noremap = true, silent = true, desc = 'replace tabs' })
 
 -- personal settings for tabs and shit
-local set = vim.opt
-set.tabstop = 4
-set.shiftwidth = 4
-set.colorcolumn = '80'
-set.expandtab = true
-set.softtabstop = 4
+--local set = vim.opt
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.colorcolumn = '80'
+vim.opt.expandtab = true
+vim.opt.softtabstop = 2
+
+--force verilog mode for .v files
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.v',
+  command = 'set filetype=verilog',
+})
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -462,7 +468,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
+      --      vim.keymap.set('n', '<leader>sp', builtin.find_files { cwd = vim.fn.expand '%:p:h' }, { desc = '[S]earch [P]wd' })
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
