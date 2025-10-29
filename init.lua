@@ -96,11 +96,13 @@ vim.keymap.set('n', '<leader>a', [[:%s/\t/    /g<CR>]], { noremap = true, silent
 
 -- personal settings for tabs and shit
 --local set = vim.opt
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.colorcolumn = '80'
 vim.opt.expandtab = true
-vim.opt.softtabstop = 2
+vim.opt.softtabstop = 4
+
+
 
 --force verilog mode for .v files
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
@@ -289,7 +291,9 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-
+  {
+    'github/copilot.vim'
+  },
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
@@ -510,6 +514,9 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
+    opts = {
+      autoformat = false,
+    },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
@@ -784,20 +791,21 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
-      end,
+      format_on_save = false,
+      --        function(bufnr)
+      --        -- Disable "format_on_save lsp_fallback" for languages that don't
+      --        -- have a well standardized coding style. You can add additional
+      --        -- languages here or re-enable it for the disabled ones.
+      --        local disable_filetypes = { py = true, c = true, cpp = true }
+      --        if disable_filetypes[vim.bo[bufnr].filetype] then
+      --          return nil
+      --        else
+      --          return {
+      --            timeout_ms = 500,
+      --            lsp_format = 'fallback',
+      --          }
+      --        end
+      --      end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -867,7 +875,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',--'default',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -1016,7 +1024,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+   { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
